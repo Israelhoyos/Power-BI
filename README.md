@@ -16,5 +16,5 @@ Power BI es una suite de herramientas de análisis empresarial de Microsoft que 
 
 * Compartir y Colaborar: Compartir los informes y cuadros de mando con otros usuarios y colaborar en ellos a través del servicio Power BI.
 
-# Conclusión
+## Conclusión
 Power BI es una herramienta poderosa y versátil que permite a las organizaciones transformar datos en información útil y accionable. Su facilidad de uso, combinada con sus capacidades avanzadas, lo hace ideal tanto para usuarios principiantes como para analistas de datos experimentados.
