@@ -1,0 +1,141 @@
+LA BIENVENIDA AL CURSO DE POWER BI CON SCRIPTS DE PYTHON
+DANIEL CASTILLO, FORMADOR DEL CIBERNARIUM (DATA SCIENCE)
+4 SESIONES - DE LUNES A JUEVES DE 14:00 A 18:00
+DESCANSO DE 15 MINUTOS
+- UNA CUENTA FREE DE GITHUB (HAY UN REPOSITORIO PARA EL CURSO)
+- POWER BI DESKTOP (EN EL PC)
+- INSTALAR PYTHON (3.14.7)
+- INSTALAR ALGUNA LIBRERIA ADICIONAL
+- SQL SERVER
+
+POWER BI ES UNA HERRAMIENTA DE BUSSINES INTELLIGENCE
+DATA ANALYST - VISUALIZAR DATOS UNA VEZ PROCESADOS, PARA OBTENER INFORMACION
+DATA ENGINEERING - PROCESAR DATOS, PARA QUE PUEDAN SER INTERPRETADOS. 
+POWER BI, TIENE UN MOTOR DE TRANSFORMACIÓN (POWER QUERY) ES UNA HERRAMIENTA QUE TRABAJA EN BACK-END, PERO QUE TIENE LIMITACIONES
+PUEDE CARGAR UN FICHERO, QUE SEA MAS OPTIMO
+ES CARGAR UN FICHERO DE EXCEL (XML)
+MEJOR USAR UN CSV (40-50% + RAPIDO)
+FICHEROS PARQUET DE APACHE (ULTRA MEGA RAPIDO)
+EN EXCEL 1000000 TARDAR 15 MINUTOS
+EN PARQUET LO MISMO 30"-1 MINUTO
+SQL SERVER - SERVIDOR DE BBDD BASE SQL
+
+TRANSFORMAR DATOS - NORMALIZARLOS DE MANERA QUE NOS QUEDA UN CONJUNTO DE DATOS, COMPUESTO DE COLUMNAS Y FILAS, EN POWER BI PUEDO VISUALIZAR LOS DATOS CON LAS VISUALIZACIONES: TABLA, MATRIZ (FILAS/COLUMNAS), GRAFICOS, SEGMENTACIONES DE DATOS (FILTRAR DINAMICAMENTE EL INFORME), TARJETAS PARA VER UNO O MAS DATOS DE MANERA AISLADA, GEOLOCALIZACIÓN
+
+FORMULAS DAX = SIRVEN PARA CALCULAR LA METRICA
+(LA MEDICION DE LA INFORMACIÓN), SUMA DE IMPORTE
+PROMEDIO DEL PRECIO, NUMERO DE CLIENTES, ETC...
+DAX TRABAJA EN ENTORNO MULTI-HILO, NO USA DISCO, SI NO RAM, NO TRABAJA CON COLUMNAS INTERMEDIAS PARA CALCULAR
+
+PUEDO HACER MEDIDAS CON DAX, MEDIDAS CON EL SCRIPT DE PYTHON
+DAX = DINAMICO (CAMBIA SEGÚN FILTRO)
+PYTHON = ESTATICO (NO CAMBIA SEGÚN FILTRO)
+
+PYTHON INSTALAR + COMPROBAR SI PYTHON ESTA EN NUESTRO ORDENADOR
+
+ABRIMOS UN TERMINAL CMD O MS-DOS, POWER SHELL, BASH
+C:\Windows\system32>python --version
+Python 3.14.7
+
+C:\Windows\system32>where python
+C:\Users\formacio\AppData\Local\Programs\Python\Python314\python.exe
+C:\Users\formacio\AppData\Local\Microsoft\WindowsApps\python.exe
+C:\Users\formacio\AppData\Local\Python\bin\python.exe
+
+VER LAS LIBRERIAS INSTALADAS
+C:\Windows\system32>pip list
+Package                 Version
+----------------------- -----------
+asttokens               3.0.1
+cloudpickle             3.1.2
+colorama                0.4.6
+comm                    0.2.3
+
+COMO NECESITO TRABAJAR CON DATOS, TENGO QUE INSTALAR 2 LIBRERIAS DE PYTHON
+COMO INSTALAR UNA LIBRERIA C:\Windows\system32>
+pip install pandas
+
+pandas = ES UNA LIBRERIA QUE ME PERMITE TRABAJAR CON DATOS, 3 TIPOS DE ESTRUCTURAS
+SERIES = ESTRUCTURAS DE 1 DIMENSION CON INDICE ASOCIADO
+DATAFRAME = ESTRUCTURAS DE 2 DIMENSIONES AL ESTILO TABLA
+MULTI-INDEX = SON ESTRUCTURAS DE N DIMENSIONES, AL ESTILO CUBO OLAP
+
+pandas + matplotlib LIBRERIAS NECESARIAS PARA PYTHON EN POWER BI
+HABILITAR LA CREACIÓN DE SCRIPTS EN PYTHON
+
+PARA USAR PANDAS, APARTE DE INSTALAR LA LIBRERIA LA TENGO QUE LLAMAR PARA USARLA
+
+import pandas as pd
+
+january_2019 = pd.read_csv(r"C:\Users\formacio\Downloads\January 2019 (2).csv")
+february_2019 = pd.read_csv(r"C:\Users\formacio\Downloads\February 2019 (2).csv")
+
+datos_2019 = pd.concat([january_2019,february_2019])
+#Cambiar el punto por la coma con replace
+#Como visualizar una columna de un dataframe
+
+datos_2019['Revenue'] = datos_2019['Revenue'].astype(str).str.replace('.',',')
+
+del january_2019, february_2019
+
+en python los decimales son con punto
+en power bi (Spanish) los decimales son con coma
+
+Practica 1: cargar los meses de January + February + March 2019, y consolidarlo
+en un dataframe (trimestre) con script de python
+realizar las transformaciones necesarias para resolver los siguientes enunciados
+- Una tabla para ver el numero de pedidos por pais (una fila es un pais)
+- Una matriz para ver la suma de Units
+  por pais y mes
+- Un grafico de lineas para ver el revenue por semana.
+os dejo 5-6 minutos y resolvemos la practica 1
+
+import pandas as pd
+
+#Cargar por individual los 3 ficheros csv
+january = pd.read_csv(r"C:\Users\formacio\Downloads\January 2019 (2).csv")
+february = pd.read_csv(r"C:\Users\formacio\Downloads\February 2019 (2).csv")
+march = pd.read_csv(r"C:\Users\formacio\Downloads\March 2019 (2).csv")
+#Concatenar los 3 para obtener uno solo
+trimestre = pd.concat([january, february, march])
+#Cambiar el revenue de punto a coma
+trimestre['Revenue'] = trimestre['Revenue'].astype(str).str.replace('.',',')
+#Eliminar los dataframes sobrantes
+del january, february, march
+
+Hacer un descuento para los Paises Colombia y Panama
+voy a crear una función en el script de Python
+y despues la voy a llamar para hacer el descuento. Como crear la nueva columna "Revenue net". Llamando al dataframe con un nombre de columna que no exista
+
+trimestre['Revenue Net'] = trimestre['Revenue'] + 100
+
+Una función en python empieza por la palabra clave def, seguido de espacio en blanco, el nombre d la función (sin espacios en blanco, ni caracteres espaciales, ni empezar con un numero
+abrir parentesis y dentro poner el parametro (el valor que yo le paso a la función), cierro el parentesis y finalmente : (2 puntos)
+
+def descuento(pais):
+    if pais=='Colombia' or pais=='Panama':
+	return 0.20
+    else:
+	return 0
+
+trimestre['Descuento'] = trimestre['Pais'].Apply(Descuento)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
