@@ -1,0 +1,101 @@
+POWER BI | 
+
+Puede cargar un fichero, que sea más optimo es cargar un fichero de EXCEL (XLMS)
+
+MEJOR USAR UN CSV (40-50% + RÁPIDO)
+
+FICHEROS PAQUET DE APACHE (ULTRA MEGA RÁPIDO)
+
+EN EXCEL 1000000 TARDAR 15 MINUTOS (LENTO)
+
+EN PARQUET (30 SEGUNDOS MEDIA)
+
+SQL SERVER - SERVIDOR DE BBDD BASE SQL
+
+VAMOS A TRANFORMAR DATOS - NORMALIZARLOS DE MANERA QUE NOS QUEDA UN CONJUNTO DE DATOS, COMPUESTO DE COLUMNAS Y FILAS.
+EN POWER BI PUEDO VISUALIZAR LOS DATOS CON LAS VISUALIZACIONES : TABLA, MATRIZ (FILAS/COLUMNAS), GRÁFICOS, SEGMENTACIONES DE DATOS (FILTRAR DNÁMICAMENTE EL INFORME), TARJETAS PARA VER UNO O MAS DATOS DE MANERA ASILADA, GEOLOCALIZACIÓN
+
+FORMULAS DAX = SIRVEN PARA CALCULAR LA MÉTRICA (MEDICIÓN DE LA INFORMACIÓN), SUMA DE IMPORTE PROMEDIO DEL PRECIO, NÚMERO DE CLIENTE,ETC...
+DAX TRABAJA EN ENTORNO MULTI-HILO, NO USA DISCO, SI NO RAM, NO TRABAJA CON COLUMNAS INTERMEDIAS PARA CALCULAR
+
+PUEDO HACER MEDIDAS CON DAX, MEDIDAS CON EL SCRIPT DE PYTHON
+DAX = DINÁMICO
+PYTHON = ESTÁTICO
+
+|||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||
+PARA USAR PANDAS, APARTE DE INSTALAR LA LIBRERÍA LA TENGO QUE LLAMAR PARA USARLA
+
+import pandas as pd
+
+january_2019 = pd.read_csv(r"C:\Users\formacio\Downloads\January 2019.csv")
+february2019 = pd.read_csv(r"C:\Users\formacio\Downloads\February 2019.csv")
+
+datos_2019 = pd.concat([january_2019,february2019])
+
+datos_2019 = pd.concat([january_2019,february2019])
+
+
+#CAMBIAR EL PUNTO POR LA COMA CON -REPLACE-
+#COMO VISUALIZAR UNA COLUMNA DE UN DATAFRAME
+
+
+datos_2019["Revenue"] = datos_2019["Revenue"].astype(str).str.replace(".",",")
+
+del january_2019,february2019 
+
+
+
+
+
+!!! LOS PILARES FUNDAMENTALES DEL ANÁLISIS DE DATOS
+
+DIMESIÓN
+MÉTRICA
+TIEMPO
+
+
+/////////////////////
+
+PRÁCTICA 1 
+CARGAR LOS MESES DE JANUARY + FEBRUARY + MARCH 2019, Y CONSOLIDARLO EN UN DATAFRAME (TRIMESTRE) REALIZAR LAS TRANSFORMACIONES NECESARIAS PARA RESOLVER LOS SIGUIENTES ENUNCIADOS
+- UNA TABLA PARA VER EL NÚMERO DE PEDIDOS POR PAÍS (UNA FILA ES UN PAÍS)
+- UNA MATRIZ PARA VER LA SUMA DE UNITS POR PAÍS Y MES
+- UN GRÑAFICO DE LÍNEAS PARA VER EL REVENUE POR SEMANA.
+- HACER UN DESCUENTO PARA LOS PAÍSES : COLOMBIA Y PANAMÁ | VOY A CREAR UAN FUNCIÓN EN EL SCRIPT DE PYTHON Y DESPUÉS LA VOY A LLAMAR PARA HACER EL DESCUENTO.
+COMO CREAR LA NUEVA COLUMNA "REVENUE"
+
+
+import pandas as pd
+
+#CARGAR INDIVIDUAL LOS 3 FICHEROS
+
+january_2019 = pd.read_csv(r"C:\Users\formacio\Downloads\January 2019.csv")
+february2019 = pd.read_csv(r"C:\Users\formacio\Downloads\February 2019.csv")
+march_2019 = pd.read_csv(r"C:\Users\formacio\Downloads\March 2019.csv")
+
+#CONCATENAR LOS 3 EN UNO SOLO
+
+trimestre = pd.concat([january_2019,february2019,march_2019])
+
+# CAMBIAR EL REVENUE DE PUNTO A COMA
+trimestre["Revenue"] = trimestre["Revenue"].astype(str).str.replace(".",",")
+trimestre["Revenue Net"] = trimestre["Revenue Net"].astype(str).str.replace(".",",")
+
+#ELIMINAR DF SOBRANTES
+
+del january_2019,february2019,march_2019
+
+
+-------------------------------
+USANDO FUNCIONES
+
+
+def descuento(pais):
+  if pais == "Colombia" or pais  == "Panama":
+      return 0.20
+  else:
+      return 0
+
+trimestre["Descuento"] = trimestre["Pais"].Apply(descuento)
+
+
