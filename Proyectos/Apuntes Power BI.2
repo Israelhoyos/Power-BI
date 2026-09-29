@@ -1,0 +1,50 @@
+SOLUCIÓN PRÁCTICA 1
+
+import pandas as pd
+
+#CARGAR INDIVIDUAL LOS 3 FICHEROS
+
+january_2019 = pd.read_csv(r"C:\Users\formacio\Downloads\January 2019.csv")
+february2019 = pd.read_csv(r"C:\Users\formacio\Downloads\February 2019.csv")
+
+bimensual = pd.concat([january_2019,february2019])
+
+#FUNCIÓN para poner en una nueva columna, el descuento del 0.20 0 20%, sino el descuento es 0%.
+def descuento(pais):
+    if pais == "Panama" or pais == "Colombia":
+        return 0.20
+    else:
+        return 0
+
+#LLAMAR A LA FUNCIÓN
+bimensual["Descuento"] = bimensual["Country"].apply(descuento)
+bimensual["Descuento"] = bimensual["Descuento"].astype(str).str.replace(".",",")
+
+
+#ESTO SERÍA LO ÚLTIMO
+bimensual["Revenue"] = bimensual["Revenue"].astype(str).str.replace(".",",")
+
+#ELIMINAR LOS DF SOBRANTES
+del january_2019,february2019
+
+
+ 
+
+
+PRÁCTICA 2
+
+PARTIENDO DE LOS FICHEROS CSV, JANUARY, FEBRUARY, + MARCH 2019 REALIZAR EL SCRIPT DE PYTHON PARA RESOLVER LOS SIGUIENTES ENUNCIADOS.
+- VER EN UNA TABLA EL "REVENUE NET" POR COUNTRY REVENUE NET = REVENUE MENOS UN 15,65% SI EL COUNTRY ES USA Y EL REVENUE ES MAYOR DE 2000. SI NO REVENUE NET = REVENUE
+- EN UN GRÁFICO CIRCULAR LOS 3 PAÍSES QUE MÁS SUMA DE "UNITS" TIENEN.
+
+ACORDARSE DE CUALQUIER CÁLCULO ANTES DE HACER EL REPLACE + AL FINAL ELIMINAR LOS DATAFRAMES SOBRANTES.
+
+
+def descuento(fila):   
+  if fila["Country"] == "USA and fila
+["Revenue"]>2000:
+  return 0.1568
+else:
+  return 0
+
+trimestre["Descuento"] = trimestre.apply(descuento)
